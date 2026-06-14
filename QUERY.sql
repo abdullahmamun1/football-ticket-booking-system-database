@@ -118,3 +118,11 @@ JOIN Matches as m ON b.match_id = m.match_id
 -- Query-5
 SELECT u.user_id, full_name, booking_id FROM Users as u
 LEFT JOIN Bookings as b ON u.user_id = b.user_id
+  
+-- Query-6
+SELECT booking_id, match_id, total_cost FROM Bookings 
+WHERE total_cost > (SELECT avg(total_cost) FROM Bookings)
+  
+-- Query-7
+SELECT match_id, fixture, base_ticket_price FROM Matches 
+ORDER BY base_ticket_price DESC LIMIT 2 OFFSET 1
