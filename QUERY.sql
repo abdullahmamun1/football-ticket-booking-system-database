@@ -109,3 +109,12 @@ WHERE full_name ILIKE 'Tanvir%' OR full_name ILIKE '%Haque%'
 -- Query-3
 SELECT user_id, full_name, email FROM Users
 WHERE full_name ILIKE 'Tanvir%' OR full_name ILIKE '%Haque%'
+  
+-- Query-4
+SELECT booking_id, full_name, fixture, total_cost FROM Users as u
+JOIN Bookings as b ON u.user_id = b.user_id
+JOIN Matches as m ON b.match_id = m.match_id
+  
+-- Query-5
+SELECT u.user_id, full_name, booking_id FROM Users as u
+LEFT JOIN Bookings as b ON u.user_id = b.user_id
