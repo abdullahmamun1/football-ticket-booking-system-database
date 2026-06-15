@@ -104,25 +104,25 @@ WHERE tournament_category = 'Champions League' AND match_status = 'Available';
 
 -- Query-2
 SELECT user_id, full_name, email FROM Users
-WHERE full_name ILIKE 'Tanvir%' OR full_name ILIKE '%Haque%'
+WHERE full_name ILIKE 'Tanvir%' OR full_name ILIKE '%Haque%';
   
 -- Query-3
-SELECT user_id, full_name, email FROM Users
-WHERE full_name ILIKE 'Tanvir%' OR full_name ILIKE '%Haque%'
+SELECT booking_id, user_id, match_id, COALESCE(payment_status, 'Action Required') as systematic_status FROM Bookings
+WHERE payment_status IS NULL;
   
 -- Query-4
-SELECT booking_id, full_name, fixture, total_cost FROM Users as u
+SELECT b.booking_id, u.full_name, m.fixture, b.total_cost FROM Users as u
 JOIN Bookings as b ON u.user_id = b.user_id
-JOIN Matches as m ON b.match_id = m.match_id
+JOIN Matches as m ON b.match_id = m.match_id;
   
 -- Query-5
-SELECT u.user_id, full_name, booking_id FROM Users as u
-LEFT JOIN Bookings as b ON u.user_id = b.user_id
+SELECT u.user_id, u.full_name, b.booking_id FROM Users as u
+LEFT JOIN Bookings as b ON u.user_id = b.user_id;
   
 -- Query-6
 SELECT booking_id, match_id, total_cost FROM Bookings 
-WHERE total_cost > (SELECT avg(total_cost) FROM Bookings)
+WHERE total_cost > (SELECT AVG(total_cost) FROM Bookings);
   
 -- Query-7
 SELECT match_id, fixture, base_ticket_price FROM Matches 
-ORDER BY base_ticket_price DESC LIMIT 2 OFFSET 1
+ORDER BY base_ticket_price DESC LIMIT 2 OFFSET 1;
