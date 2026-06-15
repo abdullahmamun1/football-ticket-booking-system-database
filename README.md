@@ -1,16 +1,14 @@
-# Football Ticket Booking System - Database Design
+# Football Ticket Booking System - Database Design & SQL Query Results
 
 ## Project Overview
 
-The Football Ticket Booking System is a relational database designed to manage football match ticket sales. The system stores information about users, football matches, and ticket bookings while maintaining relationships between tables using primary keys and foreign keys.
+The Football Ticket Booking System is a relational database designed to manage football match ticket sales. The system stores information about users, football matches, and ticket bookings while maintaining relationships through primary and foreign keys.
 
 ---
 
 # Database Schema
 
 ## Users Table
-
-Stores information about customers and administrative staff who use the platform.
 
 | Field Name   | Description                                                 |
 | ------------ | ----------------------------------------------------------- |
@@ -32,8 +30,6 @@ Stores information about customers and administrative staff who use the platform
 ---
 
 ## Matches Table
-
-Stores information about football matches and ticket pricing.
 
 | Field Name          | Description                                          |
 | ------------------- | ---------------------------------------------------- |
@@ -57,8 +53,6 @@ Stores information about football matches and ticket pricing.
 
 ## Bookings Table
 
-Stores ticket purchase transactions linking users and matches.
-
 | Field Name     | Description                            |
 | -------------- | -------------------------------------- |
 | booking_id     | Unique booking transaction number      |
@@ -80,15 +74,15 @@ Stores ticket purchase transactions linking users and matches.
 
 ---
 
-# Relationships
+# Entity Relationships
 
 ### Users → Bookings (One-to-Many)
 
-One user can create multiple bookings, while each booking belongs to one user.
+One user can create multiple bookings, while each booking belongs to exactly one user.
 
 ### Matches → Bookings (One-to-Many)
 
-One match can have multiple bookings, while each booking is associated with one match.
+One match can have multiple bookings, while each booking belongs to exactly one match.
 
 ---
 
@@ -107,11 +101,112 @@ One match can have multiple bookings, while each booking is associated with one 
 
 ---
 
+# SQL Query Questions & Results
+
+## Query 1
+
+**Retrieve all upcoming football matches belonging to the 'Champions League' where the match status is 'Available'.**
+
+### Result
+
+| match_id | fixture                  | base_ticket_price |
+| -------- | ------------------------ | ----------------- |
+| 101      | Real Madrid vs Barcelona | 150               |
+| 103      | Bayern Munich vs PSG     | 130               |
+
+---
+
+## Query 2
+
+**Search for all users whose full names start with 'Tanvir' or contain the phrase 'Haque' (case-insensitive).**
+
+### Result
+
+| user_id | full_name     | email                                     |
+| ------- | ------------- | ----------------------------------------- |
+| 1       | Tanvir Rahman | [tanvir@mail.com](mailto:tanvir@mail.com) |
+| 2       | Asif Haque    | [asif@mail.com](mailto:asif@mail.com)     |
+
+---
+
+## Query 3
+
+**Retrieve all booking records where the payment status is missing (NULL), replacing the empty result with 'Action Required'.**
+
+### Result
+
+| booking_id | user_id | match_id | systematic_status |
+| ---------- | ------- | -------- | ----------------- |
+| 504        | 2       | 101      | Action Required   |
+
+---
+
+## Query 4
+
+**Retrieve match booking details along with the User's full name and the scheduled Match fixture teams.**
+
+### Result
+
+| booking_id | full_name     | fixture                  | total_cost |
+| ---------- | ------------- | ------------------------ | ---------- |
+| 501        | Tanvir Rahman | Real Madrid vs Barcelona | 150        |
+| 502        | Tanvir Rahman | Man City vs Liverpool    | 120        |
+| 503        | Asif Haque    | Real Madrid vs Barcelona | 150        |
+| 504        | Asif Haque    | Real Madrid vs Barcelona | 150        |
+| 505        | Sajjad Rahman | Man City vs Liverpool    | 120        |
+
+---
+
+## Query 5
+
+**Display a comprehensive list of all users and their booking IDs, ensuring that fans who have never bought a ticket are still listed.**
+
+### Result
+
+| user_id | full_name     | booking_id |
+| ------- | ------------- | ---------- |
+| 1       | Tanvir Rahman | 501        |
+| 1       | Tanvir Rahman | 502        |
+| 2       | Asif Haque    | 503        |
+| 2       | Asif Haque    | 504        |
+| 3       | Sajjad Rahman | 505        |
+| 4       | Jannat Ara    | NULL       |
+
+---
+
+## Query 6
+
+**Find all ticket bookings where the total cost is strictly higher than the average cost of all ticket bookings.**
+
+### Result
+
+| booking_id | match_id | total_cost |
+| ---------- | -------- | ---------- |
+| 501        | 101      | 150        |
+| 503        | 101      | 150        |
+| 504        | 101      | 150        |
+
+---
+
+## Query 7
+
+**Retrieve the top 2 most expensive matches sorted by base ticket price, skipping the absolute highest premium match.**
+
+### Result
+
+| match_id | fixture               | base_ticket_price |
+| -------- | --------------------- | ----------------- |
+| 103      | Bayern Munich vs PSG  | 130               |
+| 102      | Man City vs Liverpool | 120               |
+
+---
+
 # Features
 
-- User management
-- Football match management
-- Ticket booking tracking
-- Payment status monitoring
-- Match availability tracking
-- Relational database design using primary and foreign keys
+- User Management
+- Match Management
+- Ticket Booking Tracking
+- Payment Status Monitoring
+- Match Availability Management
+- Relational Database Design using Primary and Foreign Keys
+- SQL Query Practice with Filtering, Joins, NULL Handling, and Aggregation
