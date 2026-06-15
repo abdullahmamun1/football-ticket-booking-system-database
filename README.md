@@ -3,6 +3,9 @@
 ## Project Overview
 
 The Football Ticket Booking System is a relational database designed to manage football match ticket sales. The system stores information about users, football matches, and ticket bookings while maintaining relationships through primary and foreign keys.
+<br>
+<br>
+ERD LINK: https://drawsql.app/draw?t=2eb319bc-7d40-4a50-af63-065503742d1f&view=1
 
 ---
 
